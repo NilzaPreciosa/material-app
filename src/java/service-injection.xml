@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+  http://www.springframework.org/schema/beans/spring-beans.xsd
+  http://www.springframework.org/schema/util
+  http://www.springframework.org/schema/util/spring-util.xsd">
+    
+    
+    <!-- DAOs-->
+    <bean name="userDao" class="mz.nilzaproject.cedsif.dao.UsuarioDAOImpl">
+         <constructor-arg name="htemplate" ref="htemplate"/>
+    </bean>
+    
+    <bean name="materialDAO" class="mz.nilzaproject.cedsif.dao.MaterialDAOImpl">
+         <constructor-arg name="htemplate" ref="htemplate"/>
+    </bean>
+    
+    <bean name="itemDAO" class="mz.nilzaproject.cedsif.dao.ArmazemItemDAOImpl">
+         <constructor-arg name="htemplate" ref="htemplate"/>
+    </bean>
+    
+    <!--here all the url value should contains the valid path for the jrxml file-->
+    <bean name="userService" class="mz.nilzaproject.cedsif.service.UsuarioServiceImpl"/>
+    <bean name="materialService" class="mz.nilzaproject.cedsif.service.MaterialServiceImpl"/>
+    <bean name="itemService" class="mz.nilzaproject.cedsif.service.ArmazemItemServiceImpl"/>
+   
+
+</beans>

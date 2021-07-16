@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Cadastro de Usuário</title>
+    </h:head>
+    <h:body>
+        <h:form> 
+            <div id="" classs="">
+                <table width="100%" cellpadding="0" cellspacing="0" border="0" align="center"  class="outer_table">
+                    <tr>
+                        <td>
+                            <table width="500" height="300" cellpadding="0" cellspacing="0" border="0" align="center">
+                                <tr>
+                                    <td align="center">
+                                        <p:panel header="Cadastro de Usuario">
+                                            <h:panelGrid columns="2" cellpadding="5">
+
+                                                <h:outputLabel for="perfil" value="Tipo de Perfil"/>
+                                                <h:selectOneMenu id="perfil" value="#{usuarioBean.perfil}" required="true" label="Tipo de Perfil">
+                                                    <f:selectItem itemLabel="Selecione uma opção" itemValue="" noSelectionOption="true"/>
+                                                    <f:selectItem itemLabel="Administrador" itemValue="Administrador"/>
+                                                    <f:selectItem itemLabel="Usuario" itemValue="Usuario"/>
+                                                </h:selectOneMenu>
+
+                                                <h:outputLabel for="nameDescription"  value="Nome do Utilizador" />
+                                                <p:inputText id="nameDescription"     value="#{usuarioBean.nameDescription}" required="false" label="nameDescription" />
+
+                                                <h:outputLabel for="username"  value="Username" />
+                                                <p:inputText id="username"     value="#{usuarioBean.username}" required="false" label="username" />
+
+                                                <h:outputLabel for="password"  value="Password" />
+                                                <p:inputText id="password"     value="#{usuarioBean.password}" required="false" label="password" />
+
+                                                <p:commandButton value="Gravar"  action="#{usuarioBean.registarUsuario}" resetValues="true" ajax="false" />
+
+                                            </h:panelGrid>
+                                        </p:panel>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </h:form>
+    </h:body>
+</html>
+

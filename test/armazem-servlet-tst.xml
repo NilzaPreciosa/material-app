@@ -1,0 +1,60 @@
+<?xml  version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:lang="http://www.springframework.org/schema/lang"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+        http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+     
+    
+    <!-- autodetect beans -->
+    <context:annotation-config />
+    <context:component-scan base-package="mz.nilzaproject.cedsif.controller" />
+    <mvc:annotation-driven/>
+   	
+	<!-- uc_008 - importing datasource-->
+    <!-- <import resource="config/datasource-config.xml"/> -->
+    
+    <!-- uc_009 - importing flows-->
+    <!-- <import resource="config/webflow-config.xml"/> -->
+    
+    <!-- uc_011 - importing spring security-->
+    <!-- <import resource="config/spring-security-config.xml"/> -->
+    
+    <!-- uc_007 - Definig resource order -->
+    <mvc:resources location="classpath:datasource-test-integration.properties"          mapping="/resources/*"  order="1"/>     -->
+    <mvc:resources location="classpath:jdbc.properties" 		mapping="/resources/*"  order="2"/>
+    <mvc:resources location="classpath:message.properties" 		mapping="/resources/*"  order="3"/>
+    
+    <!--uc_005 - used for file upload service -->
+    <!-- <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="100000" />
+    </bean> -->
+
+     <!--uc_004 - generating view resolvers -->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass"  value="org.springframework.web.servlet.view.JstlView" />
+        <property name="prefix"     value="/WEB-INF/jsf" />
+        <property name="suffix"     value=".xhtml" />
+    </bean> 
+    
+    <!--uc_006 - configuring jasper views-->
+    <bean id="jasperXmlView" class="org.springframework.web.servlet.view.XmlViewResolver">
+        <property name="location" value="/WEB-INF/config/jasper-config-test.xml"/>
+        <property name="order" value="3"/>
+    </bean> 
+   	    
+   	<!-- uc_014 - implement an auditing interface to track all object see @ILogger.class-->   
+                      
+</beans>

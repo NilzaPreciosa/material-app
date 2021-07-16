@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!-- was: <?xml version="1.0" encoding="UTF-8"?> -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+
+    
+
+    <!--Step3-Message configurationLoader 
+    <bean id="configurationLoader"
+          class="org.springmodules.validation.bean.conf.loader.annotation.AnnotationBeanValidationConfigurationLoader"/>
+    
+    <bean id="validator" class="org.springmodules.validation.bean.BeanValidator"
+          p:configurationLoader-ref="configurationLoader"/> -->
+          
+    <!--ElResolvers-->
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+        <property name="defaultLocale" value="pt" />
+    </bean>
+    
+    <!--Step2-->
+    <bean id="viewResolver"
+          class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+          p:prefix="/WEB-INF/faces/"
+          p:suffix=".xhtml" />
+    
+    <!--Step2 -->
+    <bean class="org.springframework.web.servlet.view.XmlViewResolver">
+        <property name="location" value="classpath:jasper-config-test.xml"/>
+    </bean>
+    <!--
+    <bean id="viewScope" class="mz.nilzaproject.cedsif.scope.ViewScope"/>
+    -->
+    <!--
+    <bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
+        <property name="scopes">
+            <map>
+                <entry key="view" value-ref="viewScope"/>
+            </map>
+        </property>
+    </bean> -->
+    
+   
+    
+    <!--Load messages -->
+    <bean id="messageSource"
+          class="org.springframework.context.support.ResourceBundleMessageSource"
+          p:basenames="messages" />
+    
+</beans>

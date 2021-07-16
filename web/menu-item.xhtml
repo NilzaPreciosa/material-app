@@ -1,0 +1,26 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+   
+        <h:body>
+            <ui:composition template="/newTemplate.xhtml">
+            
+             <ui:debug/>
+            <ui:define name="left">
+                <h:outputLabel value="Menu" style="color: red;"/>
+                <h:form>
+                    <ui:repeat value="#{menuBean.items}" var="item">
+                        <li class="xxx-xxx"><a id="#{item.xhtml}" href="#{item.xhtml}">#{item.descricao}</a></li>
+                    </ui:repeat>
+                    <li class="xxx-xxx"><a id="logout" href="login.jsf">Sair</a></li>
+                </h:form>
+               
+            </ui:define>
+                
+            </ui:composition>
+        </h:body>
+</html>

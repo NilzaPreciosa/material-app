@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Login-Template</title>
+    </h:head>
+    <h:body>
+        
+        <h:form>            
+        <table width="100%" cellpadding="0" cellspacing="0" border="0" align="center"  class="outer_table">
+            <tr>
+                <td>
+                    <table width="500" height="300" cellpadding="0" cellspacing="0" border="0" align="center">
+                        <tr>
+                            <td align="center">
+                                <p:panel header="Login">
+                                    <h:panelGrid columns="2" cellpadding="5">
+                                        
+                                        <h:outputLabel for="username" value="username" />
+                                        <p:inputText id="username" required="true" label="Username"/>
+
+                                        <h:outputLabel for="password" value="password" />
+                                        <p:password id="password"  required="true" label="Password" />
+                                        
+                                        <p:commandButton action="#{loginBean.doLogin}" value="Login"/>
+
+                                    </h:panelGrid>
+                                </p:panel>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </h:form>
+    </h:body>
+</html>
+

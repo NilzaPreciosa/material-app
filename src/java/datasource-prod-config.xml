@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!-- was: <?xml version="1.0" encoding="UTF-8"?> -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!--Carrega as propriedades da DB-->
+    <bean id="propertyConfigurer"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+          p:location="classpath:datasource-prod-config.properties" />
+    
+    <bean id="dataSource"
+          class="com.mchange.v2.c3p0.ComboPooledDataSource" 
+          destroy-method="close"
+          p:driverClass="${spring.jpa.properties.h2.driver}"
+          p:jdbcUrl="${spring.database.url}"
+          p:user="${spring.database.username}"
+          p:password="${spring.database.password}"/>
+      
+    <!-- ADD PERSISTENCE SUPPORT HERE (jpa, hibernate, etc) -->
+    <!-- Creating a spring lazy connection -->        
+    <bean name="lazyConnectionDataSourceProxy" class="org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy">
+        <property name="targetDataSource" ref="dataSource" />
+    </bean>
+    
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="lazyConnectionDataSourceProxy" />
+        <property name="packagesToScan">
+            <value>mz.nilzaproject.cedsif.model.db</value>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">${spring.jpa.properties.hibernate.dialect}</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <!--<prop key="hibernate.connection.SetBigStringTryClob">false</prop>-->
+                <prop key="hibernate.jdbc.batch_size">0</prop>
+                <!--<prop key="hibernate.hbm2ddl.auto">${spring.jpa.properties.hibernate.hbm2ddl.auto}</prop>-->
+            </props>
+        </property>
+    </bean>
+
+    <!--Configuracao da instancia do hibernate session-->
+    <bean name="htemplate" class="org.springframework.orm.hibernate4.HibernateTemplate">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    
+    <!--Finalizando a configuracao com uma Tx-->
+    <tx:annotation-driven/>
+    <bean id="transactionManager"
+          class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+</beans>

@@ -1,0 +1,39 @@
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, input {
+    font-size: 100%;
+}
+body {
+    font-family: sans-serif;
+    font-size:12px;
+}
+.data, .data td {
+    border-collapse: collapse;
+    width: auto;
+    border: 1px solid #aaa;
+    padding: 5px;
+}
+.data th {
+    background-color: #363;
+    color: #FFF;
+    font-weight: bold;
+}
+
+ .tdAuto{
+	  width: auto;
+	 }
+ .th-wh{
+         width:90px;
+       }         
+h1, h2, h3 {
+    font-family: Trebuchet MS,Liberation Sans,DejaVu Sans,sans-serif;
+    font-weight: bold;
+}
+h1 {
+    font-size: 170%;
+}		
+h2 {
+    font-size: 140%;
+}	
+h3 {
+    font-size: 120%;
+}

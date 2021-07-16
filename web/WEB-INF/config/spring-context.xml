@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+      xmlns:context="http://www.springframework.org/schema/context"
+      xmlns:mvc="http://www.springframework.org/schema/mvc"
+      xmlns:tx="http://www.springframework.org/schema/tx"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:p="http://www.springframework.org/schema/p"
+      xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.1.xsd">
+
+    
+     <!-- autodetect beans 
+    <context:annotation-config /> -->
+    <context:component-scan base-package="mz.nilzaproject.cedsif.bean" />
+   
+    <bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor" />
+    
+    <bean class="org.springframework.web.servlet.view.XmlViewResolver">
+        <property name="location" value="/WEB-INF/config/jasper-config.xml"/>
+        <property name="order" value="0"/>
+    </bean>
+   
+    <!--ElResolvers-->
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+        <property name="defaultLocale" value="pt" />
+    </bean>
+       
+    <!--Load messages -->
+    <bean id="messageSource"
+          class="org.springframework.context.support.ResourceBundleMessageSource"
+          p:basenames="messages" />
+    
+    <!--Step1-->
+    <import resource="classpath:datasource-prod-config.xml"/> 
+    
+    <!--Step2-->
+    <import resource="classpath:service-injection.xml"/>
+    
+</beans>

@@ -1,0 +1,74 @@
+.form-item { margin: 20px 0px; }
+.form-label { font-weight: bold; }
+.form-error-field { background-color: #FFC; }
+
+.form-error-message 
+{ 
+    font-weight: bold; color: #900;
+    background-color: #FFC;
+}
+
+body {
+    font-family: sans-serif;
+    font-size:12px;
+}
+
+legend{
+    color: #FFC;
+    font-weight: bold;
+    background-color: #363;
+}
+
+#message{
+    font-weight: bold; 
+    color: #363;
+    background-color: #FFC;
+}
+
+#message2{
+    font-weight: bold; 
+    color: red;
+    background-color: #FFC;
+}
+
+.listmenu {
+    padding: 0 0 0px 0;
+    list-style-type: none;
+    background-color: #363;
+    width:150px;
+}
+
+.listmenu li a{
+    color: #FFF;
+    display: block;
+    border:solid;
+    padding: 4px 0 4px 14px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+
+.listmenu li a:hover {
+    border:solid;
+    color: #fff;
+    margin-left:4px;
+    margin-right:-4px;
+    text-decoration:underline;
+}
+ul#sub-level {
+    display: none;
+    color: #fff;
+}
+
+li:hover #sub-level {
+    border-width: 1px;
+    display: block;
+    color:#F90;
+}
+
+ul#sub-level li {
+    border: none;
+    width:150px;
+    background-color:#999;
+    margin-left: -40px;
+}

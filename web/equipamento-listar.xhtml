@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+
+    <h:head>
+        <title>Cadastro de Material Informático Obsoleto</title>
+    </h:head>
+    <h:body>
+
+        <ui:composition template="/newTemplate.xhtml">           
+                <ui:define name="content">
+                     <h:form>
+
+                    <div id="list" style="margin-top:-5px;">
+                        <fieldset>
+                            <legend>Lista</legend>
+
+                            <div name="list" style="margin-top:10px;overflow:auto;height: 200px ;margin-left: 15px;">
+                                <c:choose>
+                                    <c:when test="${!empty facturaList}">
+                                        <table border="0px" class="data">
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Factura No.</th>
+                                                <th>Data de Emissao</th>
+                                                <th>Matricula</th>
+                                                <th>Empresa</th>
+                                                <th>Diagnostico</th>
+                                                <th>Valor Orçado</th>
+                                                <!--<th class="th-wh">Quilometragem</th>-->
+                                                <th>Proxima revisao (Km)</th>
+                                                <th>Observacao</th>                                                                                                                     
+                                            </tr>
+
+                                            <c:forEach var="factura" items="${facturaList}">
+                                                <tr> 
+                                                    <td>${factura.id}</td>
+                                                    <td><a href="/Gesttransport/login/editFactura/${factura.id}.htm" title="Carregar Ficheiro em PDF">${factura.facturaId}</a></td>
+                                                    <td>${factura.dataEmissao}</td>
+                                                    <td>N/A-Use foreign key</td>
+                                                    <td>${factura.empresa}</td>
+                                                    <td style="width: 250px;">${factura.diagnostico}</td>
+                                                    <td>${factura.valorOrcado}</td>
+                                                    <td>${factura.proxRevisao}</td>
+                                                </tr>
+                                            </c:forEach>
+                                        </table>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <div style="float: left">
+                                            <img src="${pageContext.request.contextPath}/${image}" height="20px"/>&nbsp;
+                                        </div>
+                                        <div id="message" style="margin-top: 3px;">
+                                            ${message}
+                                        </div> 
+                                    </c:otherwise>
+                                </c:choose>
+                                <div style="float: left">
+                                    <img src="${pageContext.request.contextPath}/${image2}" height="20px"/>&nbsp;
+                                </div>
+                                <div id="message2" style="margin-top: 3px;">
+                                    ${message2}
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </h:form>
+                    
+                </ui:define>
+
+        </ui:composition>
+             
+    </h:body>
+</html>
+
