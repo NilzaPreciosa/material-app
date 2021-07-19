@@ -52,8 +52,6 @@ public class LoginBean implements Serializable{
   
     private Usuario usuario;
     
-    private String username;
-    private String password;
 
      private static Log LOG = LogFactory.getLog(LoginBean.class);
      
@@ -80,21 +78,6 @@ public class LoginBean implements Serializable{
         this.usuario = usuario;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
 
     
     /**
@@ -111,7 +94,7 @@ public class LoginBean implements Serializable{
         for (Usuario u : this.userService.list()){
             
             //se a conta for igual
-            if(u.getUsername().equals(username)){
+            if(u.getUsername().equals(this.usuario.getUsername())){
                 
                 //pega no usuario
                 user = u;
@@ -131,7 +114,7 @@ public class LoginBean implements Serializable{
         }catch(NullPointerException nux){
             
             
-        LOG.info("Button Login Selecionado"+username);
+        LOG.info("Button Login Selecionado para user "+this.usuario.getNameDescription());
         }
         
         
