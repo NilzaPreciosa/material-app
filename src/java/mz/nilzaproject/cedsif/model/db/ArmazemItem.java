@@ -60,7 +60,7 @@ public class ArmazemItem implements Serializable {
     private String status;
     
     @JoinColumn(name = "material_id", referencedColumnName = "id")  
-    @OneToOne(targetEntity = Material.class, cascade=CascadeType.ALL)
+    @OneToOne(targetEntity = Material.class)
     private Material materialId;
 
     public ArmazemItem() {

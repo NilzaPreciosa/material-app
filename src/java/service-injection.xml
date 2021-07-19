@@ -27,5 +27,6 @@
     <bean name="materialService" class="mz.nilzaproject.cedsif.service.MaterialServiceImpl"/>
     <bean name="itemService" class="mz.nilzaproject.cedsif.service.ArmazemItemServiceImpl"/>
    
+    <bean name="regra" class="mz.nilzaproject.cedsif.service.rules.Rules"/>
 
 </beans>

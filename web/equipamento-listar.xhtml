@@ -4,7 +4,8 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 
     <h:head>
@@ -22,31 +23,53 @@
 
                             <div name="list" style="margin-top:10px;overflow:auto;height: 200px ;margin-left: 15px;">
                                 <c:choose>
-                                    <c:when test="${!empty facturaList}">
+                                    <c:when test="${!empty itemView.items}">
                                         <table border="0px" class="data">
                                             <tr>
                                                 <th>ID</th>
-                                                <th>Factura No.</th>
-                                                <th>Data de Emissao</th>
-                                                <th>Matricula</th>
-                                                <th>Empresa</th>
-                                                <th>Diagnostico</th>
-                                                <th>Valor Orçado</th>
+                                                <th>Código</th>
+                                                <th>Tipo de Material</th>
+                                                <th>Marca</th>
+                                                <th>No. Referência</th>
+                                                <th>No. SerialNumber</th>
+                                                <th>Ano de Fabrico</th>
+                                                <th>Idade do Material</th>
                                                 <!--<th class="th-wh">Quilometragem</th>-->
-                                                <th>Proxima revisao (Km)</th>
-                                                <th>Observacao</th>                                                                                                                     
+                                                <th>Data de entrada</th>
+    
+                                                <th>Data de Leilão</th>
+                                                <th>Status</th>
+                                                <th>Operação</th>
+                                                                                                                                                                                                                   
                                             </tr>
 
-                                            <c:forEach var="factura" items="${facturaList}">
+                                            <c:forEach var="item" items="#{itemView.items}">
+                                                
                                                 <tr> 
-                                                    <td>${factura.id}</td>
-                                                    <td><a href="/Gesttransport/login/editFactura/${factura.id}.htm" title="Carregar Ficheiro em PDF">${factura.facturaId}</a></td>
-                                                    <td>${factura.dataEmissao}</td>
-                                                    <td>N/A-Use foreign key</td>
-                                                    <td>${factura.empresa}</td>
-                                                    <td style="width: 250px;">${factura.diagnostico}</td>
-                                                    <td>${factura.valorOrcado}</td>
-                                                    <td>${factura.proxRevisao}</td>
+                                                    <td>${item.id}</td>
+                                                    <td><a href="/Gesttransport/login/editFactura/${item.codigo}.htm" title="Carregar Ficheiro em PDF">${item.codigo}</a></td>
+                                                   
+                                                    <td>${item.material.tipo}</td>
+                                                    <td>${item.material.marca}</td>
+                                                    <td>${item.material.referencia}</td>
+                                                    <td>${item.material.serialNumber}</td>
+                                                    <td>${item.material.anoFabrico}</td>
+                                                    <td>${item.material.idade}</td>
+                                                    <td>${item.dataEntrada}</td>
+                                                    <td>${item.dataLeilao}</td>
+                                                    <td>${item.status}</td>
+                                                    <td>
+                                                        <p:commandButton value="Editar"  action="#{itemBean.editar()}"  resetValues="true" ajax="false" >
+                                                            <f:param name="id" value="${item.id}"  />
+                                                        </p:commandButton>
+                              
+                                                        <p:commandButton value="Remover"  action="#{itemView.deletar()}"  resetValues="true" ajax="false">
+                                                         <f:param name="id" value="${item.id}"  />
+                                                        </p:commandButton>
+                                                        <p:commandButton value="Leiloar"  action="#{itemView.leiloar()}"  resetValues="true" ajax="false">
+                                                        <f:param name="id" value="${item.id}"  />
+                                                        </p:commandButton>
+                                                    </td>
                                                 </tr>
                                             </c:forEach>
                                         </table>

@@ -9,17 +9,20 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import mz.nilzaproject.cedsif.model.db.ArmazemItem;
 import mz.nilzaproject.cedsif.model.db.Material;
 import mz.nilzaproject.cedsif.service.ArmazemItemService;
 import mz.nilzaproject.cedsif.service.MaterialService;
+import mz.nilzaproject.cedsif.service.rules.Rules;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +58,8 @@ public class ArmazemItemBean implements Serializable {
     @Autowired
     private ArmazemItemService itemService;
 
+    @Autowired
+    private Rules regra;
     
     @PostConstruct
     public void init(){
@@ -98,6 +103,7 @@ public class ArmazemItemBean implements Serializable {
     public void setItemId(int itemId) {
         this.itemId = itemId;
     }
+    
 
     public List<Integer> getAnoFabricoList() {
         
@@ -167,6 +173,8 @@ public class ArmazemItemBean implements Serializable {
                 Integer.parseInt(anoFabrico), 
                 0);
         
+        
+       
         //gravar material
         materialService.createOrUpdate(material);
         
@@ -178,30 +186,31 @@ public class ArmazemItemBean implements Serializable {
         //gravar item
         this.itemService.createOrUpdate(item);
         
+        
+        //executa regra
+        //calcula idade
+        int idade = this.regra.executarRegra01(material);
+         
         LOG.info("Registando o matetrial "+material.getId()+" Tamanho da lista marca");
         LOG.info("Registando o armazem   "+item.getId() +" Tamanho da lista item");
         
         return "equipamento-registar?faces-redirect=true"; 
-    }
+    }   
     
-    public List<ArmazemItem> listarMaterial(){
-        
-        LOG.info("Total de Material "+itemService.list().size());
-        return this.itemService.list();
-    }
-    
-    public String editar(Integer id){
+    public String editar(){
         
         LOG.info("Editando "+itemService.list().size());
-        return ""; 
-    }
-    
-    public String deletar(Integer id){
         
-        LOG.info("Removendo "+itemService.list().size());
-        this.itemService.delete(id);
+        Map<String,String> params = 
+                FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         
-        return "equipamento-listar";
+        //pegar item
+        item = this.itemService.read(Integer.parseInt(params.get("id")));
+        
+        //settar o id
+        this.itemId = item.getId();
+        
+        return "equipamento-registar"; 
     }
-    
+
 }

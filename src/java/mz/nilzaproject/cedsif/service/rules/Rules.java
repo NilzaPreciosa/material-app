@@ -10,6 +10,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import mz.nilzaproject.cedsif.dao.ArmazemItemDAO;
+import mz.nilzaproject.cedsif.dao.MaterialDAO;
 import mz.nilzaproject.cedsif.model.db.ArmazemItem;
 import mz.nilzaproject.cedsif.model.db.Material;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +20,15 @@ import org.springframework.stereotype.Service;
  *
  * @author nilza.graca
  */
-@Service("regras")
+@Service("regra")
 public class Rules implements Rule{
 
     //Injecao de dependencias
     @Autowired
     private ArmazemItemDAO itemDAO;
+    
+    @Autowired
+    private MaterialDAO materialDAO;
     
     @Override
     public int executarRegra01(final Material m) {
@@ -47,6 +51,9 @@ public class Rules implements Rule{
             //altera esta de obsolencia
             item.setStatus("OBSOLETO");
             //save
+            m.setIdade(idadeMaterial);
+            materialDAO.createOrUpdate(m);
+            
             itemDAO.createOrUpdate(item);
         }
         
@@ -61,30 +68,16 @@ public class Rules implements Rule{
         int anoActual = cal.get(Calendar.YEAR);
         boolean podeLeiloar = false;
         
-        //2nd pegar a lista de itens de material do armazem
-        List<ArmazemItem> items = this.itemDAO.list();
-        
         //2.1nd verificar para cada item se este e igual ao item de entrada
-        ArmazemItem item1 = null;
+        ArmazemItem item1 = this.itemDAO.read(m.getId());
         
-        try{
-            
-            for(ArmazemItem eachitem : items){
-
-                if(eachitem.getMaterial().getId().equals(m.getId())){
-                    //pega o item
-                    item1 = eachitem;
-                    //quebra o ciclo
-                    break;
-                }
-            }
             //3st. Para o item de armazem encontrado, extrai a data de entrada no armazem
             cal.setTime(item1.getDataEntrada());
 
             int anoEntradaArmazem = cal.get(Calendar.YEAR);
 
             //4nd. retorna a diferenca das datas e valida se é > 2
-            podeLeiloar = (this.executarRegra01(item1.getMaterial()) >9 && (anoActual - anoEntradaArmazem) > 1);
+            podeLeiloar = (m.getIdade() >9); //&& (anoActual - anoEntradaArmazem) > 1);
             
             //altera o estado do matarial no item
             if(podeLeiloar){
@@ -92,15 +85,12 @@ public class Rules implements Rule{
                 item1.setStatus("LEILOADO");
                 //update item
                 itemDAO.createOrUpdate(item1);
+                podeLeiloar = true;
                 
             }
             
             return podeLeiloar; 
         
-        }catch(NullPointerException nux){
-            
-            return false;
-        }
     }
 
     @Override

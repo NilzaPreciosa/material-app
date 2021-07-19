@@ -56,7 +56,13 @@ public abstract class ArmazemDSImpl<T extends Object,ID extends Serializable> im
     @Override
     public void createOrUpdate(T entity) {
         
-       session.saveOrUpdate(entity);
+       if(this.list().contains(entity)){
+           session.update(entity);
+           
+       }else{
+           session.saveOrUpdate(entity);
+       }
+       
        session.flush();
     }
 
