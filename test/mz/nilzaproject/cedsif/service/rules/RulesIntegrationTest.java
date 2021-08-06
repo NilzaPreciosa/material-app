@@ -70,13 +70,13 @@ public class RulesIntegrationTest extends CustomDAOTestSpringJUnitTransactionalO
         Material material1111   =item0.getMaterial();
 
         //create
-        this.materialDAO.createOrUpdate(material1111);
+        this.materialDAO.create(material1111);
         
         //than  to item
         item0.setMaterial(material1111);
         
         //and finally create item
-        this.itemDAO.createOrUpdate(item0);
+        this.itemDAO.create(item0);
         
         //pega o item da db
         item0 = this.itemDAO.read(1);

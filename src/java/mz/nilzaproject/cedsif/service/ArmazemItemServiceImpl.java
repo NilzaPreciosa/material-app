@@ -22,8 +22,8 @@ public class ArmazemItemServiceImpl implements ArmazemItemService{
     private ArmazemItemDAO itemDAO;
     
     @Override
-    public void createOrUpdate(ArmazemItem t) {
-        this.itemDAO.createOrUpdate(t);
+    public void create(ArmazemItem t) {
+        this.itemDAO.create(t);
     }
 
     @Override
@@ -39,6 +39,11 @@ public class ArmazemItemServiceImpl implements ArmazemItemService{
     @Override
     public List<ArmazemItem> list() {
         return this.itemDAO.list();
+    }
+
+    @Override
+    public void update(ArmazemItem t) {
+        this.itemDAO.update(t);
     }
     
       

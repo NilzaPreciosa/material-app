@@ -27,9 +27,9 @@ public class MaterialServiceImpl implements MaterialService {
     private MaterialDAO materialDAO;
 
     @Override
-    public void createOrUpdate(Material t) {
+    public void create(Material t) {
         
-        this.materialDAO.createOrUpdate(t);
+        this.materialDAO.create(t);
     }
 
     @Override
@@ -50,5 +50,9 @@ public class MaterialServiceImpl implements MaterialService {
         return this.materialDAO.list();
     }
     
+    @Override
+    public void update(Material t) {
+        this.materialDAO.update(t);
+    }
     
 }

@@ -10,17 +10,17 @@
     
     
     <!-- DAOs-->
-    <bean name="userDao" class="mz.nilzaproject.cedsif.dao.UsuarioDAOImpl">
-         <constructor-arg name="htemplate" ref="htemplate"/>
-    </bean>
+    <bean name="userDao" class="mz.nilzaproject.cedsif.dao.UsuarioDAOImpl"/>
+         <!--<constructor-arg name="htemplate" ref="htemplate"/>
+    </bean> -->
     
-    <bean name="materialDAO" class="mz.nilzaproject.cedsif.dao.MaterialDAOImpl">
-         <constructor-arg name="htemplate" ref="htemplate"/>
-    </bean>
+    <bean name="materialDAO" class="mz.nilzaproject.cedsif.dao.MaterialDAOImpl"/>
+         <!-- <constructor-arg name="htemplate" ref="htemplate"/>
+    </bean> -->
     
-    <bean name="itemDAO" class="mz.nilzaproject.cedsif.dao.ArmazemItemDAOImpl">
-         <constructor-arg name="htemplate" ref="htemplate"/>
-    </bean>
+    <bean name="itemDAO" class="mz.nilzaproject.cedsif.dao.ArmazemItemDAOImpl"/>
+         <!--<constructor-arg name="htemplate" ref="htemplate"/>
+    </bean>-->
     
     <!--here all the url value should contains the valid path for the jrxml file-->
     <bean name="userService" class="mz.nilzaproject.cedsif.service.UsuarioServiceImpl"/>

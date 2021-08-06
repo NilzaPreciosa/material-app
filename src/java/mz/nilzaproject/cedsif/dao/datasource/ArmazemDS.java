@@ -26,7 +26,7 @@ public interface ArmazemDS<T extends Object, ID extends Serializable> {
      *
      */
     //metodo create
-    public void createOrUpdate(T t);
+    public void create(T t);
 
     //metodo para busca o objecto na base
     public T read(ID id);
@@ -35,4 +35,6 @@ public interface ArmazemDS<T extends Object, ID extends Serializable> {
     public T delete(ID id);
 
     public List<T> list();
+    
+    public void update(T t);
 }

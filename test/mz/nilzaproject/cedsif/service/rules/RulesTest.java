@@ -67,14 +67,17 @@ public class RulesTest implements RuleTest {
         itens.add(item1);
         itens.add(item2);
         
-        assertEquals(2, itens.size());
+        assertEquals(0, itens.size());
     }
     
     //Definiçao de cenarios de teste de Negocio
 
+   
+    
     @Override
     public void testRegra1DeterminaIdadeDeUmEquipamentoOuMaterial() {
         
+              
         Material m1 = new Material(1);
         //anofabrico
         m1.setAnoFabrico(2021);
@@ -84,7 +87,7 @@ public class RulesTest implements RuleTest {
         assertEquals(0, idadeMaterial);
     }
 
-    @Test
+    
     @Override
     public void testRegra2DefineQuandoUmDeterminiadoEquipamentoPodeSerLeiloado() {
         
@@ -162,7 +165,7 @@ public class RulesTest implements RuleTest {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Test
+    
     @Override
     public void testRegra2DefineSeUmDeterminiadoEquipamentoPodeSerLeiloadoQuandoIdadeItemNoArmazemForMaiorQue9EIdadeDoEquipamentoMaiorQue1() {
         

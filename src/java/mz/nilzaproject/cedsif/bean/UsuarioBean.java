@@ -78,7 +78,7 @@ public class UsuarioBean implements Serializable {
         //invoca um recuros de FacesServlet, para enviar a messagem ao
         //componente de mensagem na tela
         
-        this.userService.createOrUpdate(user);
+        this.userService.create(user);
         
         String message ="Usuario "+user.getUsername()+" ja foi registado";
         

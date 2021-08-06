@@ -123,7 +123,7 @@ public class LoginBean implements Serializable{
     
     public String fazerLogout(){
         
-        //userService.createOrUpdate(new Usuario(1, "USER", username, password, "EMPTY"));
+        //userService.create(new Usuario(1, "USER", username, password, "EMPTY"));
       
         FacesContext fc = FacesContext.getCurrentInstance();
         Map<String,Object> session =  fc.getExternalContext().getSessionMap();

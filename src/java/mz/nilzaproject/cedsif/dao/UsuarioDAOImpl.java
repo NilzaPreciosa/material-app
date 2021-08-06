@@ -24,10 +24,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class UsuarioDAOImpl extends ArmazemDSImpl<Usuario, Integer> implements UsuarioDAO{
     
-    @Inject
     public UsuarioDAOImpl(HibernateTemplate htemplate) {
         super(htemplate);
     }
    
+    public UsuarioDAOImpl() {
+        super();
+    }
     
 }

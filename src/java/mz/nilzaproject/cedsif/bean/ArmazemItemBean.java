@@ -75,7 +75,7 @@ public class ArmazemItemBean implements Serializable {
     public int getItemId() {
         return materialService.list().size() + 1;
     }
-
+    
     public String getAnoFabrico() {
         return anoFabrico;
     }
@@ -176,7 +176,7 @@ public class ArmazemItemBean implements Serializable {
         
        
         //gravar material
-        materialService.createOrUpdate(material);
+        materialService.create(material);
         
         ArmazemItem item = new ArmazemItem(material.getId(), Calendar.getInstance().getTime());
         item.setMaterial(material);
@@ -184,7 +184,7 @@ public class ArmazemItemBean implements Serializable {
         item.setDataLeilao(null);
           
         //gravar item
-        this.itemService.createOrUpdate(item);
+        this.itemService.create(item);
         
         
         //executa regra
@@ -197,20 +197,49 @@ public class ArmazemItemBean implements Serializable {
         return "equipamento-registar?faces-redirect=true"; 
     }   
     
-    public String editar(){
+    public String janelaEditar(){
+    
         
-        LOG.info("Editando "+itemService.list().size());
+        Map<String,String> params = 
+                FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+                        
+        //pego id
+        item = this.itemService.read(Integer.parseInt(params.get("id")));
+        
+        this.itemId = item.getId();
+        
+        LOG.info("Editando o material"+params);
+        return "equipamento-editar?id="+params;
+    }
+    
+    public String editarMaterial(){
         
         Map<String,String> params = 
                 FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         
-        //pegar item
-        item = this.itemService.read(Integer.parseInt(params.get("id")));
+        LOG.info("Editando o material"+params);// "+item.getId());
+        
+        //pego id
+        int idItem = Integer.parseInt(params.get("j_idt17:itemId"));
+        
+        Material material = new Material();
+        material.setId(idItem);
+        material.setTipo(item.getMaterial().getTipo()); 
+        material.setMarca(item.getMaterial().getMarca()); 
+        material.setReferencia(item.getMaterial().getReferencia());
+        material.setProcessador(item.getMaterial().getProcessador());
+        material.setSerialNumber(item.getMaterial().getSerialNumber());
+       
+        //pegar o objecto solicitado apartir da View
+        this.materialService.update(material);
         
         //settar o id
-        this.itemId = item.getId();
+        //this.itemId = item.getId();
         
-        return "equipamento-registar"; 
+        
+        
+        //Chama actualizar
+        return "equipamento-editar?faces-redirect=true"; 
     }
 
 }

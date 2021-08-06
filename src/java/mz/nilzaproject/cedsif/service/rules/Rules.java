@@ -52,9 +52,9 @@ public class Rules implements Rule{
             item.setStatus("OBSOLETO");
             //save
             m.setIdade(idadeMaterial);
-            materialDAO.createOrUpdate(m);
+            materialDAO.create(m);
             
-            itemDAO.createOrUpdate(item);
+            itemDAO.create(item);
         }
         
         return idadeMaterial;
@@ -84,7 +84,7 @@ public class Rules implements Rule{
                 
                 item1.setStatus("LEILOADO");
                 //update item
-                itemDAO.createOrUpdate(item1);
+                itemDAO.create(item1);
                 podeLeiloar = true;
                 
             }

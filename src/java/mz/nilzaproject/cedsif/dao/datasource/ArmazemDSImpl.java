@@ -8,6 +8,7 @@ package mz.nilzaproject.cedsif.dao.datasource;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Session;
@@ -29,11 +30,12 @@ public abstract class ArmazemDSImpl<T extends Object,ID extends Serializable> im
     @Autowired
     private SessionFactory sessionFactory;
     
-    private Session session;
+    protected Session session;
     
     private static Log LOG = LogFactory.getLog(ArmazemDSImpl.class);
     private final Class<T> clazz;
 
+    
     @SuppressWarnings("unchecked")
     public ArmazemDSImpl(final HibernateTemplate htemplate) {
         this.clazz = (Class<T>) ((ParameterizedType) getClass()
@@ -46,6 +48,15 @@ public abstract class ArmazemDSImpl<T extends Object,ID extends Serializable> im
         LOG.warn("Loading class[" + this.clazz.getName()+"]");  
 
     }
+    
+    public ArmazemDSImpl() {
+        
+        this.clazz = (Class<T>) ((ParameterizedType) getClass()
+                .getGenericSuperclass()).getActualTypeArguments()[0];
+                      
+        LOG.warn("Loading class[" + this.clazz.getName()+"] with SessionFactory");  
+
+    }
 
    public Class<T> getPersistentClass() {
         
@@ -54,38 +65,47 @@ public abstract class ArmazemDSImpl<T extends Object,ID extends Serializable> im
     
     @Transactional
     @Override
-    public void createOrUpdate(T entity) {
-        
-       if(this.list().contains(entity)){
-           session.update(entity);
-           
-       }else{
-           session.saveOrUpdate(entity);
-       }
+    public void create(T entity) {
        
-       session.flush();
+       this.session= this.sessionFactory.getCurrentSession();
+       this.session.saveOrUpdate(entity);
+          
+       this.session.flush();
     }
 
     @Transactional
     @Override
     public T read(ID id) {
-      return (T) session.get(this.clazz, id);
+      
+        this.session= this.sessionFactory.getCurrentSession();
+        return (T) this.session.get(this.clazz, id);
     }
    
     @Transactional
     @Override
     public T delete(ID id) {
         T t = (T) this.read(id);
-        session.delete(t);
-        session.flush();
+        
+        this.session= this.sessionFactory.getCurrentSession();
+        this.session.delete(t);
+        this.session.flush();
         return (T) t;
     }
     
     @Transactional
     @Override
     public List<T> list() {
-        return (List<T>) session.createCriteria(this.clazz).list();
+        
+        this.session= this.sessionFactory.getCurrentSession();
+        return (List<T>) this.session.createCriteria(this.clazz).list();
     }
-    
+
+    @Override
+    public void update(T t) {
+        
+       this.session= this.sessionFactory.openSession();
+       this.session.update(t);   
+       this.session.flush();
+    }
     
 }

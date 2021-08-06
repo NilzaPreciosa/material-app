@@ -11,6 +11,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -60,7 +61,7 @@ public class ArmazemItem implements Serializable {
     private String status;
     
     @JoinColumn(name = "material_id", referencedColumnName = "id")  
-    @OneToOne(targetEntity = Material.class)
+    @OneToOne(targetEntity = Material.class,fetch = FetchType.EAGER)
     private Material materialId;
 
     public ArmazemItem() {

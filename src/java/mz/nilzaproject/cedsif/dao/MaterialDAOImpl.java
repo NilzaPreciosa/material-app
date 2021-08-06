@@ -18,6 +18,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class MaterialDAOImpl extends ArmazemDSImpl<Material, Integer> implements MaterialDAO{
 
+    public MaterialDAOImpl() {
+        super();
+    }
+    
     public MaterialDAOImpl(final HibernateTemplate htemplate) {
         super(htemplate);
     }

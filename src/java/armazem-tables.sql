@@ -25,6 +25,7 @@ create table material(
 );
 
 --Entidade ArmazemItem
+--drop table armazem_item;
 create table armazem_item(
     id          int,
     codigo      varchar(10),
@@ -35,8 +36,8 @@ create table armazem_item(
     PRIMARY KEY(id),
     --Criando os refencias as tabelas
     FOREIGN KEY (material_id) REFERENCES material(id)
-        ON DELETE CASCADE
-        ON UPDATE CASCADE
+      ON DELETE CASCADE
+      ON UPDATE CASCADE
 );
 
 --Entidade Usuario

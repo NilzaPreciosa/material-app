@@ -14,7 +14,9 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import mz.nilzaproject.cedsif.model.db.ArmazemItem;
+import mz.nilzaproject.cedsif.model.db.Material;
 import mz.nilzaproject.cedsif.service.ArmazemItemService;
+import mz.nilzaproject.cedsif.service.MaterialService;
 import mz.nilzaproject.cedsif.service.rules.Rules;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -30,8 +32,13 @@ public class ItemView implements Serializable {
     
     private static Log LOG = LogFactory.getLog(ItemView.class);
     
+    //@Autowired permite chamar ou invocar Beans do spring
     @Autowired
     private ArmazemItemService itemService;
+    
+    @Autowired
+    private MaterialService materialService;
+    
     
     @Autowired
     private Rules regra;
@@ -58,8 +65,10 @@ public class ItemView implements Serializable {
         
         //pegar item para validar existencia
         ArmazemItem item = this.itemService.read(Integer.parseInt(params.get("id")));
-        
+           
         this.itemService.delete(item.getId());
+        
+        this. materialService.delete(item.getId());
         
         return "equipamento-listar";
     }

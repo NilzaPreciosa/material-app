@@ -7,6 +7,7 @@ package mz.nilzaproject.cedsif.dao;
 
 import mz.nilzaproject.cedsif.dao.datasource.ArmazemDSImpl;
 import mz.nilzaproject.cedsif.model.db.ArmazemItem;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate4.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -16,9 +17,13 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class ArmazemItemDAOImpl extends ArmazemDSImpl<ArmazemItem, Integer> implements ArmazemItemDAO{
+        
+    public ArmazemItemDAOImpl() {
+        super();
+    }
     
     public ArmazemItemDAOImpl(final HibernateTemplate htemplate) {
         super(htemplate);
     }
-    
+      
 }
